@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SUDOKU</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+<div class="ctf">
+
+  <!-- HEADER -->
+  <div class="hdr">
+    <div class="dots">
+      <div class="dot r"></div>
+      <div class="dot y"></div>
+      <div class="dot g"></div>
+    </div>
+    <span class="hdr-title">SUDOKU</span>
+    <span class="hdr-sub">9×9 ARBITRARY-SYMBOL PUZZLE</span>
+    <span class="hdr-author">by Lancelot</span>
+    <a class="btn-docs" href="/docs" target="_blank">API DOCS ↗</a>
+  </div>
+
+  <!-- MAIN -->
+  <div class="main">
+
+    <!-- LEFT : GRILLE -->
+    <div class="left">
+      <div class="panel-title">[ PUZZLE BOARD ]</div>
+      <div class="puzzle-area" id="puzzle-area">
+
+        <div class="puzzle-num"  id="puz-num">PUZZLE #— / —</div>
+        <div class="puzzle-meta" id="puz-meta">—</div>
+        <div class="puzzle-solved" id="puz-solved" style="display:none">✓ RÉSOLU</div>
+        <div class="puzzle-hint" id="puz-hint">Chargement…</div>
+
+        <div class="sudoku-grid" id="grid"></div>
+
+        <div class="symbols-row" id="syms-row"></div>
+
+        <div class="progress-wrap">
+          <div class="progress-header">
+            <span>PROGRESSION</span>
+            <span><span id="s-solved">0</span> / <span id="s-total">—</span></span>
+          </div>
+          <div class="progress-track">
+            <div class="progress-fill" id="progress-fill"></div>
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+
+    <!-- RIGHT : API + TERMINAL -->
+    <div class="right">
+
+      <div class="api-section">
+        <div class="api-title">[ API REFERENCE ]</div>
+        <div class="endpoint-box">
+          <div><span class="m-get">GET &nbsp;</span><span class="ep-url">/api/start</span><span class="ep-comment"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;→ token de session</span></div>
+          <div><span class="m-get">GET &nbsp;</span><span class="ep-url">/api/puzzle/{id}</span><span class="ep-comment"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;→ grille + symboles</span></div>
+          <div><span class="m-post">POST</span><span class="ep-url"> /api/puzzle/{id}/submit</span></div>
+          <span class="ep-body">{"grid": [[sym|null, …], …]}</span>
+          <div><span class="m-get">GET &nbsp;</span><span class="ep-url">/api/symbols</span><span class="ep-comment"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;→ jeux de symboles</span></div>
+          <span class="ep-body">?difficulty=easy|medium|hard</span>
+          <div><span class="m-post">POST</span><span class="ep-url"> /api/flag</span><span class="ep-comment"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;→ soumettre le flag</span></div>
+          <span class="ep-body">{"flag": "HSR{…}"}</span>
+        </div>
+      </div>
+
+      <div class="terminal">
+        <div class="term-hdr">[ TERMINAL OUTPUT ]</div>
+        <div class="term-body" id="term"></div>
+      </div>
+
+      <div class="action-bar">
+        <button class="btn primary" id="btn-solve"         onclick="demoSolve()"    disabled>▶ DEMO AUTO-SOLVE</button>
+        <button class="btn"         id="btn-submit-manual" onclick="manualSubmit()" disabled>✓ SUBMIT</button>
+        <button class="btn"         id="btn-next"          onclick="nextPuzzle()"   disabled>NEXT PUZZLE →</button>
+        <button class="btn"         id="btn-clear"         onclick="clearGrid()"    disabled>⌫ CLEAR</button>
+        <button class="btn ml-auto"                        onclick="resetAll()">↺ RESET</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script type="module" src="/static/js/app.js"></script>
+</body>
+</html>
